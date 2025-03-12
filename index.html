@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login & Register</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        /* General Container Styling */
+        .container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 50vh;
+    
+        }
+
+        /* Form Box Styling */
+        .form-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.3);
+            text-align: center;
+            max-width: 350px;
+            width: 100%;
+        }
+
+        /* Input Field Styling */
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 15px 0;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+            outline: none;
+            transition: 0.3s ease-in-out;
+        }
+
+        .input-group input:focus {
+            border-color: #007bff;
+        }
+
+        /* Button Styling */
+        button {
+            width: 100%;
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            background: #007bff;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s ease-in-out;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #0056b3;
+        }
+
+        /* Error Message Styling */
+        #errorMessage {
+            color: red;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 400px) {
+            .form-box {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="form-box">
+            <h2 id="formTitle">Login</h2>
+            <div class="input-group">
+                <input type="text" id="username" placeholder="Username">
+                <input type="password" id="password" placeholder="Password">
+                <input type="email" id="email" placeholder="Email" style="display: none;">
+            </div>
+            <button id="submitButton" onclick="handleSubmit()">Login</button>
+            <p id="toggleText">Don't have an account? <a href="#" onclick="toggleForm()">Register</a></p>
+            <p id="errorMessage"></p>
+        </div>
+    </div>
+
+    <script>
+
+        function toggleForm() {
+            let formTitle = document.getElementById("formTitle");
+            let emailField = document.getElementById("email");
+            let submitButton = document.getElementById("submitButton");
+            let toggleText = document.getElementById("toggleText");
+
+            if (formTitle.innerText === "Login") {
+                formTitle.innerText = "Register";
+                emailField.style.display = "block";
+                submitButton.innerText = "Register";
+                toggleText.innerHTML = 'Already have an account? <a href="#" onclick="toggleForm()">Login</a>';
+            } else {
+                formTitle.innerText = "Login";
+                emailField.style.display = "none";
+                submitButton.innerText = "Login";
+                toggleText.innerHTML = 'Don\'t have an account? <a href="#" onclick="toggleForm()">Register</a>';
+            }
+        }
+
+        function handleSubmit() {
+            let formTitle = document.getElementById("formTitle").innerText;
+            let username = document.getElementById("username").value.trim();
+            let password = document.getElementById("password").value.trim();
+            let email = document.getElementById("email").value.trim();
+            let errorMessage = document.getElementById("errorMessage");
+
+            errorMessage.innerText = ""; // Clear previous error messages
+
+            if (username === "" || password === "" || (formTitle === "Register" && email === "")) {
+                errorMessage.innerText = "All fields are required!";
+                return;
+            }
+
+            if (formTitle === "Register") {
+                localStorage.setItem("user", JSON.stringify({ username, password, email }));
+                alert("Registration successful! You can now log in.");
+                toggleForm();
+            } else {
+                let storedUser = JSON.parse(localStorage.getItem("user"));
+
+                if (storedUser && storedUser.username === username && storedUser.password === password) {
+                    localStorage.setItem("isLoggedIn", "true");
+
+                    alert("Login successful! Redirecting...");
+
+                    setTimeout(() => {
+                        window.location.replace("Landingpage.html");
+                    }, 500);
+                } else {
+                    errorMessage.innerText = "Invalid username or password!";
+                }
+            }
+        }
+    </script>
+</body>
+</html>

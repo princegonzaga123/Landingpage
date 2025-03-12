@@ -1,0 +1,115 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #0d0d0d;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.cv-wrapper {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 20px;
+}
+
+.cv-container {
+    background: rgba(20, 20, 20, 0.9);
+    width: 400px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px rgba(64, 199, 240, 0.5);
+    transition: transform 0.3s ease-in-out;
+}
+
+.cv-container:hover {
+    transform: scale(1.05);
+}
+
+.sidebar {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 2px solid var(--primary-color);
+}
+
+.profile-photo {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 0 10px var(--primary-color);
+}
+
+h1, h2 {
+    font-family: 'Orbitron', sans-serif;
+    text-transform: uppercase;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #40c7f0;
+    text-shadow: 0 0 10px #40c7f0;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-top: 15px;
+    color: #ffffff;
+}
+
+p, li {
+    font-size: 1rem;
+    color: #bdbdbd;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+ul li::before {
+    content: '▶';
+    color: #40c7f0;
+    padding-right: 10px;
+}
+
+.links a {
+    color: #40c7f0;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.links a:hover {
+    color: #ff007f;
+    text-shadow: 0 0 8px #ff007f;
+}
+
+.section {
+    margin-top: 20px;
+    padding: 10px;
+    border-left: 4px solid #40c7f0;
+    animation: fadeIn 1s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 768px) {
+    .cv-wrapper {
+        flex-direction: column;
+        align-items: center;
+    }
+}
